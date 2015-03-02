@@ -7,7 +7,6 @@ function Trace()
     system(['ffmpeg -i ',VideoIn,' ',ruta.path,'\Images\img%3d.jpg']);
     cd Images;
     a=dir;
-    %mkdir FINAL;
     fin=size(a);
     for i=3:fin(1)
         ['procesando... ',a(i).name]
@@ -26,16 +25,17 @@ function Trace()
         s= regionprops(imageR,'Centroid');
         %%seccion de marcado
         imshow(y);
+        [r,c,d] = size(y);
+        set(gca,'Units','normalized','Position',[0 0 1 1]);  %Modifica tamaño de ejes
+        set(gcf,'Units','pixels','Position',[200 200 c r]);  %Modifica tamaño de imagen
         hold on
         for j=1:TopeOBJ
             objeto=fix(s(j).Centroid);
              plot(objeto(1),objeto(2),'r+')
         end
         hold off
-        saveas(gcf,a(i).name);
-        close Figure 1;
-        %finaliza marcado por imagen
-        %imwrite(X,['FINAL\',a(i).name],'jpg');
+        f = getframe(gcf);
+        imwrite(f.cdata,a(i).name,'jpg');
     end
     %recreamos el video
     cd ..;
