@@ -4,7 +4,7 @@ function Trace()
     VideoOut = ['Final-',VideoIn];
     ruta=what;
     mkdir Images;
-    %system(['ffmpeg -i ',VideoIn,' ',ruta.path,'\Images\img%3d.jpg']);
+    system(['ffmpeg -i ',VideoIn,' ',ruta.path,'\Images\img%3d.jpg']);
     cd Images;
     a=dir;
     %mkdir FINAL;
